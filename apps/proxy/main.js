@@ -12,8 +12,8 @@ getResponse = function(request) {
             // Add the twitter feed to this site.
             let twit_fetch = fetch('https://twitter.com/').then(twit_res => {
                 let twit_doc = parseHTML(twit_res.data);
-                let feed = twit_doc.evaluate("//div[@id='timeline']").detach();
-
+                let feed = twit_doc.evaluate("//div[@id='timeline']")[0].detach();
+                print(feed.str());
                 let doc = parseHTML(response.data);
                 doc.evaluate('//body')[0].appendChild(feed);
                 response.data = doc.str();
