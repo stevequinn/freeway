@@ -6,7 +6,6 @@ getResponse = function(request) {
     let response_p = fetch(request);
 
     return response_p.then(response => {
-        print("Twitter feed.");
         // Any changes to response.data can be made here.
         let ct = response.headers['content-type'];
 
@@ -15,9 +14,13 @@ getResponse = function(request) {
             let twit_fetch = fetch('https://twitter.com/').then(twit_res => {
                 let twit_doc = parseHTML(twit_res.data);
                 let feed = twit_doc.evaluate("//div[@id='timeline']")[0].detach();
-                print(feed.str());
+                let style = twit_doc.evaluate("//link[@rel='stylesheet']")[0].detach();
+
                 let doc = parseHTML(response.data);
-                doc.evaluate('//body')[0].appendChild(feed);
+                let body = doc.evaluate('//body')[0];
+                let head = doc.evaluate('//head')[0];
+                head.appendChild(style);
+                body.appendChild(feed);
                 response.data = doc.str();
                 return response;
             });
