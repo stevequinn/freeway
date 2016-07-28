@@ -3,12 +3,13 @@ getResponse = function(request) {
     request.headers.host = request.host;
 
     // Setup the response promise from the fetch promise.
-    let response_p = fetch_p(request);
+    let response_p = fetch(request);
 
     return response_p.then(response => {
         print("Twitter feed.");
         // Any changes to response.data can be made here.
         let ct = response.headers['content-type'];
+
         if(ct && ct.indexOf('text/html') === 0){
             // Add the twitter feed to this site.
             let twit_fetch = fetch('https://twitter.com/').then(twit_res => {
@@ -22,7 +23,8 @@ getResponse = function(request) {
             });
 
             return twit_fetch;
-        } else{
+        }
+        else {
             return response;
         }
 
