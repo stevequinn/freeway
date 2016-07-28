@@ -14,8 +14,8 @@ getResponse = function(request) {
             let twit_fetch = fetch('https://twitter.com/').then(twit_res => {
                 let doc = parseHTML(response.data);
                 let twit_doc = parseHTML(twit_res.data);
-                let body = detach_element(doc, '//body');
-                let head = detach_element(doc, '//head');
+                let body = get_element(doc, '//body');
+                let head = get_element(doc, '//head');
                 body.appendChild(detach_element(twit_doc, "//div[@id='timeline']"));
                 head.appendChild(detach_element(twit_doc, "//link[@rel='stylesheet']"));
 
@@ -32,15 +32,24 @@ getResponse = function(request) {
     });
 };
 
-detach_element = function(doc, xpath){
-    print(`Extracting ${xpath} from ${doc}`);
+get_element = function(doc, xpath){
+    print(`Getting ${xpath} from ${doc}`);
     let e = doc.evaluate(xpath);
     if(e){
-        e = e[0].detach();
+        e = e[0];
         print(`Found ${e.str()}`);
         return e;
     }
     else{
         return null;
     }
+};
+
+detach_element = function(doc, xpath){
+    print('Detatching');
+    let e = get_element(doc, xpath);
+    if(e){
+        e = e.detach();
+    }
+    return e;
 };
