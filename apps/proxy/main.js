@@ -7,7 +7,8 @@ getResponse = function(request) {
 
     return response_p.then(response => {
         // Any changes to response.data can be made here.
-        if(response.headers['content-type'].indexOf('text/html') === 0){
+        let ct = response.headers['content-type'];
+        if(ct && ct.indexOf('text/html') === 0){
             response.data = response.data.replace(/steve/gi, 'quinn');
         }
         //response = setcache(request, response, 600, 3600*24);
