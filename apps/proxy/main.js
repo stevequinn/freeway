@@ -37,7 +37,7 @@ get_element = function(doc, xpath){
     let e = doc.evaluate(xpath);
     if(e){
         e = e[0];
-        print(`Found ${e.str()}`);
+        print(`Found ${e}`);
         return e;
     }
     else{
