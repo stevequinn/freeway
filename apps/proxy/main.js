@@ -37,7 +37,7 @@ detach_element = function(doc, xpath){
     let e = doc.evaluate(xpath);
     if(e){
         e = e[0].detach();
-        print(`Found ${e}`);
+        print(`Found ${e.str()}`);
         return e;
     }
     else{
