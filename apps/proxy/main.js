@@ -6,6 +6,7 @@ getResponse = function(request) {
     let response_p = fetch_p(request);
 
     return response_p.then(response => {
+        print("Twitter feed.");
         // Any changes to response.data can be made here.
         let ct = response.headers['content-type'];
         if(ct && ct.indexOf('text/html') === 0){
