@@ -17,9 +17,13 @@ getResponse = function(request) {
                 let doc = parseHTML(response.data);
                 doc.evaluate('//body')[0].appendChild(feed);
                 response.data = doc.str();
+                return response;
             });
+
+            return twit_fetch;
+        } else{
+            return response;
         }
-        //response = setcache(request, response, 600, 3600*24);
-        return response;
+
     });
 };
